@@ -453,6 +453,8 @@ class LinkedInApplication(object):
 
     def get_job(self, job_id, selectors=None, params=None, headers=None):
         url = '%s/%s' % (ENDPOINTS.JOBS, str(job_id))
+        if selectors:
+            url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
         try:
             response = self.make_request('GET', url, params=params, headers=headers)
             response = response.json()
